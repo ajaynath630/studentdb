@@ -2,34 +2,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
+ */
 
 /* global JQuery */
 
 var conToken="90938330|-31949271859893389|90952407";
 var dbname="studentdb";
-var dbrel="stu-rel";
+var dbrel="sturel";
 var jspdbBaseurl="http://api.login2explore.com:5577";
 var jspdbIml="/api/iml";
 var jspdbIrl="/api/irl";
         
-$("#roll").focus("");
+$('#roll').focus();
 
 
 function resetForm() {
     
-    $("#roll").val("");
-    $("#name").val("");
-    $("#class").val("");
-    $("#address").val("");
-    $("#dob").val("");
-    $("#enrolldate").val("");
-    $("#roll").prop("disabled",false);
-    $("#name").prop("disabled",true);
-    $("#class").prop("disabled",true);
-    $("#address").prop("disabled",true);
-    $("#dob").prop("disabled",true);
-    $("#enrolldate").prop("disabled",true);
-     $("#roll").focus("");
+    $('#roll').val("");
+    $('#name').val("");
+    $('#class').val("");
+    $('#address').val("");
+    $('#dob').val("");
+    $('#enrolldate').val("");
+    $('#roll').prop("disabled",false);
+    $('#name').prop("disabled",true);
+    $('#class').prop("disabled",true);
+    $('#address').prop("disabled",true);
+    $('#dob').prop("disabled",true);
+    $('#enrolldate').prop("disabled",true);
+     $('#roll').focus();
 }
 
 
@@ -38,13 +42,13 @@ function validatedata() {
     
     var roll,name,clas,address,dob,enroldate;
     
-    roll=$("#roll").val();
+    roll=$('#roll').val();
     
-    name=$("#name").val();
-     clas=$("#class").val();
-     address= $("#address").val();
-     dob=$("#dob").val();
-     enroldate=$("#enrolldate").val();
+    name=$('#name').val();
+     clas=$('#class').val();
+     address= $('#address').val();
+     dob=$('#dob').val();
+     enroldate=$('#enrolldate').val();
      
      if(roll==="") {
          alert("roll num is missing");
@@ -99,7 +103,7 @@ function validatedata() {
 }
 
 
-function saveData() {
+function save() {
     
     var jsonstrObj=validatedata();
     if(jsonstrObj==="") {
@@ -110,8 +114,9 @@ function saveData() {
     JQuery.ajaxSetup({async:false});
     var jrespons=excuteCommandAtGivenBaseUrl(putrequest,jspdbBaseurl,jspdbIml);
     JQuery.ajaxSetup({async:false});
+    
     resetForm();
-    $("#roll").focus("");
+    $("#roll").focus();
 
     
 }
@@ -119,7 +124,7 @@ function saveData() {
 function changeData() {
     
     
-    $("change").prop("disabled",true);
+    $('change').prop("disabled",true);
     var jsonstrchg=validatedata();
     
     
@@ -129,14 +134,14 @@ function changeData() {
     JQuery.ajaxSetup({async:true});
     console.log(jrespons);
     resetForm();
-    $("#roll").focus("");
+    $("#roll").focus();
 
     
 }
 
 
-fun getRollnoJson() {
-    var roll=("#Roll").val();
+function getRollnoJson() {
+    var roll=('#roll').val();
     var jsonstr={
         roll:roll
     };
@@ -149,43 +154,44 @@ function saverecordnum(jrespons) {
 }
 
 function filldata(jrespons) {
-    saverecordnum(jsrespons);
+    saverecordnum(jrespons);
     var record=JSON.parse(jrespons.data).record;
-    $("name").val(record.name);
-    $("class").val(record.class);
-    $("dob").val(record.dob);
-    $("address").val(record.address);
-    $("enrolldate").val(record.enrolldate);
+    $('name').val(record.name);
+    $('class').val(record.class);
+    $('dob').val(record.dob);
+    $('address').val(record.address);
+    $('enrolldate').val(record.enrolldate);
 }
 
-function getRoll() {
+function getroll() {
     
     
    var empidJsObject=getRollnoJson();
     
     var getRequest=createGET_BY_KEYRequest(conToken,dbname,dbrel,empidJsObject);
     JQuery.ajaxSetup({async:false});
-    var jrespons=excuteCommandAtGivenBaseUrl(getrequest,jspdbBaseurl,jspdbIml);
-    JQuery.ajaxSetup({async:false});
+    var jrespons=excuteCommandAtGivenBaseUrl(getRequest,jspdbBaseurl,jspdbIrl);
+    JQuery.ajaxSetup({async:true});
     
     if(jrespons.status===400) {
-         ("save").prop("disabled",false);
-         ("reset").prop("disabled",false);
+         ('save').prop("disabled",false);
+         ('reset').prop("disabled",false);
          
-         ("$name").focus();
+         ('$name').focus();
     }
     
     else if(jrespons.status===200) {
         
-        ("roll").prop("disabled",true);
+        ('roll').prop("disabled",true);
         filldata(jrespons);
         
-        ("change").prop("disabled",false);
-        ("save").prop("disabled",false);
-         ("$name").focus();
+        ('change').prop("disabled",false);
+        ('save').prop("disabled",false);
+         ('$name').focus();
         
     }
 
     
 
 }
+
